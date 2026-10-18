@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Тренажер ПДР</title>
+
+<!-- Фавіконка та метатеги для соцмереж -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Тренажер тестів ПДР України">
+<meta property="og:description" content="Підготовка до іспитів ПДР: білети, іспит ГСЦ за 20 хв, теми правил та робота над помилками.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --tx: #0f172a;
+  --tx-sec: #334155;
+  --mut: #64748b;
+  --ok: #15803d;
+  --okb: #f0fdf4;
+  --ok-border: #bbf7d0;
+  --bad: #b91c1c;
+  --badb: #fef2f2;
+  --bad-border: #fecaca;
+  --ac: #2563eb;
+  --ac-hover: #1d4ed8;
+  --ac-sub: #eff6ff;
+  --br: #e2e8f0;
+  --fav: #d97706;
+  --favb: #fef3c7;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 2px 4px -1px rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+}
+
+[data-theme="dark"] {
+  --bg: #0b0f19;
+  --card: #131c2e;
+  --tx: #f8fafc;
+  --tx-sec: #cbd5e1;
+  --mut: #94a3b8;
+  --ok: #22c55e;
+  --okb: #064e3b;
+  --ok-border: #059669;
+  --bad: #ef4444;
+  --badb: #7f1d1d;
+  --bad-border: #b91c1c;
+  --ac: #3b82f6;
+  --ac-hover: #60a5fa;
+  --ac-sub: #1e293b;
+  --br: #1e293b;
+  --fav: #fbbf24;
+  --favb: #451a03;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0f19;
+    --card: #131c2e;
+    --tx: #f8fafc;
+    --tx-sec: #cbd5e1;
+    --mut: #94a3b8;
+    --ok: #22c55e;
+    --okb: #064e3b;
+    --ok-border: #059669;
+    --bad: #ef4444;
+    --badb: #7f1d1d;
+    --bad-border: #b91c1c;
+    --ac: #3b82f6;
+    --ac-hover: #60a5fa;
+    --ac-sub: #1e293b;
+    --br: #1e293b;
+    --fav: #fbbf24;
+    --favb: #451a03;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+  }
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 12px 10px 32px;
+}
+@media (min-width: 640px) {
+  main { padding: 24px 16px 48px; }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 8px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (min-width: 640px) {
+  h1 { font-size: 26px; gap: 10px; }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--br);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 640px) {
+  .card { border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+
+.btn {
+  background: var(--ac);
+  color: #fff;
+  padding: 9px 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) { background: var(--ac-hover); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn.sec {
+  background: var(--card);
+  color: var(--tx-sec);
+  border: 1px solid var(--br);
+}
+.btn.sec:hover:not(:disabled) {
+  background: var(--br);
+  color: var(--tx);
+}
+
+.btn.fav-btn {
+  background: var(--card);
+  border: 1px solid var(--br);
+  color: var(--mut);
+  padding: 7px 10px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn.fav-btn.active {
+  color: var(--fav);
+  border-color: var(--fav);
+  background: var(--favb);
+  font-weight: 600;
+}
+.fav-btn-text { display: none; }
+@media (min-width: 480px) {
+  .fav-btn-text { display: inline; }
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--card);
+  border: 1px solid var(--br);
+  color: var(--tx);
+  font-size: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+.btn-icon:hover {
+  background: var(--br);
+  transform: translateY(-1px);
+}
+.btn-icon.close-btn:hover {
+  background: var(--badb);
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+.cat-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.cat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mut);
+}
+.cat-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cat-chip {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--br);
+  color: var(--tx-sec);
+  font-weight: 600;
+  font-size: 12px;
+}
+@media (min-width: 640px) {
+  .cat-chip { padding: 8px 16px; border-radius: 10px; font-size: 14px; }
+}
+.cat-chip:hover { border-color: var(--ac); color: var(--ac); }
+.cat-chip.active {
+  background: var(--ac);
+  color: #fff;
+  border-color: var(--ac);
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+}
+
+.view-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 2px solid var(--br);
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+}
+.view-tab {
+  padding: 6px 12px;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  color: var(--mut);
+  font-weight: 600;
+  font-size: 13px;
+}
+@media (min-width: 640px) {
+  .view-tab { padding: 8px 18px; font-size: 15px; }
+}
+.view-tab.active {
+  color: var(--ac);
+  border-bottom: 3px solid var(--ac);
+  margin-bottom: -7px;
+}
+
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.stat-box {
+  background: var(--card);
+  border: 1px solid var(--br);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
+}
+.stat-val { font-size: 18px; font-weight: 700; color: var(--tx); line-height: 1.2; }
+@media (min-width: 640px) {
+  .stat-val { font-size: 22px; }
+}
+.stat-lbl { font-size: 10px; font-weight: 600; color: var(--mut); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 3px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  gap: 6px;
+}
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 10px; }
+}
+.t {
+  border: 1px solid var(--br);
+  background: var(--card);
+  border-radius: 10px;
+  padding: 8px 2px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--tx);
+  box-shadow: var(--shadow-sm);
+}
+@media (min-width: 640px) {
+  .t { border-radius: 12px; padding: 12px 6px; font-size: 15px; }
+}
+.t small {
+  display: block;
+  font-weight: 500;
+  color: var(--mut);
+  font-size: 10px;
+  margin-top: 2px;
+}
+.t:hover { transform: translateY(-2px); border-color: var(--ac); }
+.t.pass {
+  border-color: var(--ok-border);
+  background: var(--okb);
+  color: var(--ok);
+}
+.t.pass small { color: var(--ok); font-weight: 600; }
+.t.fail {
+  border-color: var(--bad-border);
+  background: var(--badb);
+  color: var(--bad);
+}
+.t.fail small { color: var(--bad); font-weight: 600; }
+
+.sections-list { display: flex; flex-direction: column; gap: 8px; }
+.section-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--br);
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  gap: 8px;
+}
+@media (min-width: 640px) {
+  .section-item { padding: 14px 18px; border-radius: 14px; }
+}
+.section-item:hover { border-color: var(--ac); }
+.section-title { font-weight: 600; font-size: 13px; color: var(--tx); line-height: 1.35; }
+@media (min-width: 640px) { .section-title { font-size: 15px; } }
+.section-meta { font-size: 11px; color: var(--mut); margin-top: 2px; }
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  text-align: left;
+  margin: 8px 0;
+  padding: 11px 12px;
+  border: 1.5px solid var(--br);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--tx);
+  line-height: 1.4;
+  font-size: 14px;
+  word-break: break-word;
+}
+@media (min-width: 640px) {
+  .opt { margin: 10px 0; padding: 14px 16px; border-radius: 12px; font-size: 16px; }
+}
+.opt:hover:not(:disabled) {
+  border-color: var(--ac);
+  background: var(--ac-sub);
+}
+.opt-idx {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--br);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 10px;
+  color: var(--tx-sec);
+  margin-top: 1px;
+}
+.opt-content { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.opt-img {
+  max-height: 110px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+  padding: 3px;
+  border: 1px solid var(--br);
+  align-self: flex-start;
+  cursor: zoom-in;
+}
+.opt.selected {
+  border-color: var(--ac);
+  background: var(--ac-sub);
+  color: var(--ac);
+  font-weight: 600;
+}
+.opt.selected .opt-idx { background: var(--ac); color: #fff; }
+.opt.ok {
+  border-color: var(--ok);
+  background: var(--okb);
+  color: var(--ok);
+  font-weight: 600;
+}
+.opt.ok .opt-idx { background: var(--ok); color: #fff; }
+.opt.bad {
+  border-color: var(--bad);
+  background: var(--badb);
+  color: var(--tx);
+}
+.opt.bad .opt-idx { background: var(--bad); color: #fff; }
+.opt:disabled { cursor: default; }
+
+.imgs { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; justify-content: center; }
+.imgs img {
+  max-width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--br);
+  box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
+}
+@media (min-width: 640px) {
+  .imgs img { max-height: 380px; border-radius: 12px; }
+}
+
+.q-nav {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding: 4px 1px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.q-nav::-webkit-scrollbar { display: none; }
+.q-pill {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--br);
+  background: var(--card);
+  color: var(--tx-sec);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+@media (min-width: 640px) {
+  .q-pill { min-width: 36px; height: 36px; border-radius: 10px; font-size: 14px; }
+}
+.q-pill:hover { border-color: var(--ac); }
+.q-pill.cur {
+  border-color: var(--ac);
+  background: var(--ac-sub);
+  color: var(--ac);
+  box-shadow: 0 0 0 2px var(--ac);
+}
+.q-pill.answered { background: var(--ac); border-color: var(--ac); color: #fff; }
+.q-pill.ok { background: var(--ok); border-color: var(--ok); color: #fff; }
+.q-pill.bad { background: var(--bad); border-color: var(--bad); color: #fff; }
+
+.bar { height: 5px; background: var(--br); border-radius: 3px; margin: 8px 0 12px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ac); border-radius: 3px; transition: width 0.3s ease; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--ac-sub);
+  color: var(--ac);
+}
+.timer-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--card);
+  border: 1.5px solid var(--ac);
+  color: var(--ac);
+  font-variant-numeric: tabular-nums;
+}
+.timer-badge.urgent {
+  border-color: var(--bad);
+  color: var(--bad);
+  background: var(--badb);
+  animation: pulse 1s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  width: 100%;
+}
+@media (min-width: 440px) {
+  .action-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+}
+@media (min-width: 720px) {
+  .action-grid { display: flex; flex-wrap: wrap; }
+}
+
+.mut { color: var(--mut); font-size: 12px; }
+@media (min-width: 640px) { .mut { font-size: 13px; } }
+.warn { background: var(--badb); border: 1px solid var(--bad-border); color: var(--bad); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; font-size: 12px; font-weight: 500; }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  z-index: 100;
+}
+.modal-box {
+  background: var(--card);
+  border: 1px solid var(--br);
+  border-radius: 16px;
+  padding: 18px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+.modal-opt-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 12px 14px;
+  margin: 6px 0;
+  border: 1.5px solid var(--br);
+  border-radius: 10px;
+  background: var(--card);
+  text-align: left;
+}
+.modal-opt-btn:hover { border-color: var(--ac); background: var(--ac-sub); }
+.modal-opt-btn strong { font-size: 14px; color: var(--tx); margin-bottom: 2px; }
+.modal-opt-btn span { font-size: 12px; color: var(--mut); }
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  z-index: 200;
+  cursor: zoom-out;
+}
+.lightbox-img {
+  max-width: 95vw;
+  max-height: 85dvh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+  cursor: default;
+}
+.lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<main id="app"></main>
+
+<script src="data.js"></script>
+<script>
+const Q = window.QDATA.questions, A = window.ANSWERS, SEC = window.QDATA.sections, $ = document.getElementById("app");
+const CATS = {
+  "B1, B": [44, 47],
+  "A1, A": [40, 43],
+  "C1, C": [48, 51],
+  "D1, D": [52, 55],
+  "BE, C1E, CE, D1E, DE": [56, 59],
+  "T": [60, 63]
+};
+
+let S = { cat: "B1, B", viewTab: "tickets", theme: "auto", wrong: {}, res: {}, favs: {}, ticketHistory: {} };
+try { Object.assign(S, JSON.parse(localStorage.getItem("pdr") || "{}")); } catch(e){}
+if (!S.favs) S.favs = {};
+if (!S.ticketHistory) S.ticketHistory = {};
+if (!S.viewTab) S.viewTab = "tickets";
+if (!S.theme) S.theme = "auto";
+const save = () => { try { localStorage.setItem("pdr", JSON.stringify(S)); } catch(e){} };
+
+function applyTheme() {
+  if (S.theme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  } else if (S.theme === "light") {
+    document.documentElement.setAttribute("data-theme", "light");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+}
+applyTheme();
+
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark" || 
+    (!document.documentElement.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  S.theme = isDark ? "light" : "dark";
+  save();
+  applyTheme();
+  renderApp();
+}
+
+const el = (t, a = {}, ...k) => {
+  const e = document.createElement(t);
+  for (const x in a) {
+    if (x == "class") e.className = a[x];
+    else if (x.startsWith("on")) e[x] = a[x];
+    else e.setAttribute(x, a[x]);
+  }
+  k.flat().forEach(c => c !== null && c !== undefined && e.append(c));
+  return e;
+};
+
+const main = n => parseInt(n.split(".")[0]);
+const pool = () => {
+  const [a, b] = CATS[S.cat];
+  return Q.filter(q => {
+    const m = main(q.section);
+    return (m <= 39 || (m >= a && m <= b)) && A[q.id];
+  });
+};
+
+const getMaxErrors = (total) => total >= 20 ? 2 : Math.max(0, Math.floor(total * 0.1));
+
+function rng(seed) {
+  return () => {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+function tickets() {
+  const p = pool().map(q => q.id), r = rng(12345);
+  for (let i = p.length - 1; i > 0; i--) {
+    const j = Math.floor(r() * (i + 1));
+    [p[i], p[j]] = [p[j], p[i]];
+  }
+  const t = [];
+  for (let i = 0; i < p.length; i += 20) t.push(p.slice(i, i + 20));
+  return t;
+}
+
+let activeLightbox = null;
+function openLightbox(src) {
+  if (activeLightbox) activeLightbox.remove();
+  const lb = el("div", { class: "lightbox-overlay", onclick: () => { lb.remove(); activeLightbox = null; } },
+    el("button", { class: "lightbox-close", onclick: () => { lb.remove(); activeLightbox = null; } }, "✕"),
+    el("img", { class: "lightbox-img", src: src, onclick: e => e.stopPropagation() })
+  );
+  activeLightbox = lb;
+  document.body.append(lb);
+}
+
+function chooseTicketMode(ids, title, key) {
+  const history = key && S.ticketHistory[key] ? S.ticketHistory[key] : {};
+  const problemIds = ids.filter(id => {
+    const userChoice = history[id];
+    return userChoice === undefined || userChoice !== A[id];
+  });
+
+  const modal = el("div", { class: "modal-overlay", onclick: e => { if (e.target === modal) modal.remove(); } },
+    el("div", { class: "modal-box" },
+      el("h3", { style: "margin: 0 0 6px; font-size: 17px;" }, title),
+      el("p", { class: "mut", style: "margin: 0 0 12px;" }, "Оберіть режим проходження:"),
+      el("button", {
+        class: "modal-opt-btn",
+        onclick: () => {
+          modal.remove();
+          start(ids.slice(), title, key);
+        }
+      },
+        el("strong", {}, "📋 Усі питання білета"),
+        el("span", {}, `Пройти всі ${ids.length} питань`)
+      ),
+      el("button", {
+        class: "modal-opt-btn",
+        onclick: () => {
+          if (!problemIds.length) {
+            alert("У цьому білеті всі питання вже вирішено правильно!");
+            return;
+          }
+          modal.remove();
+          start(problemIds.slice(), `${title} (Помилки)`, key, ids.slice());
+        }
+      },
+        el("strong", {}, `🔄 Помилки та непройдені (${problemIds.length})`),
+        el("span", {}, "Лише питання з помилками або без відповіді")
+      ),
+      el("div", { style: "display: flex; justify-content: flex-end; margin-top: 10px;" },
+        el("button", { class: "btn sec", onclick: () => modal.remove() }, "Скасувати")
+      )
+    )
+  );
+
+  document.body.append(modal);
+}
+
+let activeScreen = "home";
+let currentExamState = null;
+
+function renderApp() {
+  if (activeScreen === "home") home();
+  else if (activeScreen === "run" && currentExamState) run(currentExamState);
+}
+
+function home() {
+  activeScreen = "home";
+  const [ca, cb] = CATS[S.cat];
+  const miss = Q.filter(q => {
+    const m = main(q.section);
+    return (m <= 39 || (m >= ca && m <= cb)) && !A[q.id];
+  }).length;
+  const tk = tickets();
+  const allPool = pool();
+  const wr = Object.keys(S.wrong).filter(id => A[id]);
+  const fv = Object.keys(S.favs).filter(id => A[id]);
+
+  let answeredCorrectly = 0;
+  allPool.forEach(q => {
+    for (const k in S.ticketHistory) {
+      if (S.ticketHistory[k] && S.ticketHistory[k][q.id] === A[q.id]) {
+        answeredCorrectly++;
+        break;
+      }
+    }
+  });
+
+  const passedTickets = tk.filter((ids, i) => {
+    const r = S.res[S.cat + "#" + (i + 1)];
+    return r && r.err <= getMaxErrors(ids.length);
+  }).length;
+
+  const readinessPercent = allPool.length ? Math.round((answeredCorrectly / allPool.length) * 100) : 0;
+
+  const isDarkNow = document.documentElement.getAttribute("data-theme") === "dark" || 
+    (!document.documentElement.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  const themeBtn = el("button", {
+    class: "btn-icon",
+    title: "Змінити тему",
+    onclick: toggleTheme
+  }, isDarkNow ? "☀️" : "🌙");
+
+  const catChips = el("div", { class: "cat-picker" },
+    el("div", { class: "cat-label" }, "Оберіть категорію:"),
+    el("div", { class: "cat-tabs" },
+      Object.keys(CATS).map(c => el("button", {
+        class: "cat-chip " + (c === S.cat ? "active" : ""),
+        onclick: () => { S.cat = c; save(); home(); }
+      }, c))
+    )
+  );
+
+  const statsBox = el("div", { class: "stats-bar" },
+    el("div", { class: "stat-box" },
+      el("div", { class: "stat-val", style: "color: var(--ac);" }, `${readinessPercent}%`),
+      el("div", { class: "stat-lbl" }, "Готовність"),
+      el("div", { class: "bar", style: "margin: 6px 0 0;" }, el("i", { style: `width:${readinessPercent}%;` }))
+    ),
+    el("div", { class: "stat-box" },
+      el("div", { class: "stat-val" }, `${answeredCorrectly} / ${allPool.length}`),
+      el("div", { class: "stat-lbl" }, "Пройдено питань")
+    ),
+    el("div", { class: "stat-box" },
+      el("div", { class: "stat-val", style: "color: var(--ok);" }, `${passedTickets} / ${tk.length}`),
+      el("div", { class: "stat-lbl" }, "Складено білетів")
+    )
+  );
+
+  const viewTabs = el("div", { class: "view-tabs" },
+    el("button", {
+      class: "view-tab " + (S.viewTab === "tickets" ? "active" : ""),
+      onclick: () => { S.viewTab = "tickets"; save(); home(); }
+    }, `📋 Білети (${tk.length})`),
+    el("button", {
+      class: "view-tab " + (S.viewTab === "sections" ? "active" : ""),
+      onclick: () => { S.viewTab = "sections"; save(); home(); }
+    }, `📚 Теми ПДР`)
+  );
+
+  let contentArea;
+
+  if (S.viewTab === "tickets") {
+    contentArea = el("div", { class: "grid" }, tk.map((ids, i) => {
+      const key = S.cat + "#" + (i + 1);
+      const r = S.res[key];
+      const history = S.ticketHistory && S.ticketHistory[key] ? S.ticketHistory[key] : null;
+      const maxErr = getMaxErrors(ids.length);
+
+      let cls = "t";
+      let subtitle = ids.length + " пит.";
+
+      if (r) {
+        if (r.err <= maxErr) {
+          cls += " pass";
+          subtitle = r.err === 0 ? "складено (0)" : `складено (-${r.err})`;
+        } else {
+          cls += " fail";
+          subtitle = `помилок: ${r.err}`;
+        }
+      } else if (history && Object.keys(history).length > 0) {
+        const answeredCount = Object.keys(history).length;
+        cls += " fail";
+        subtitle = `пройдено ${answeredCount}/${ids.length}`;
+      }
+
+      return el("button", {
+        class: cls,
+        onclick: () => chooseTicketMode(ids.slice(), "Білет " + (i + 1), key)
+      }, "№" + (i + 1), el("small", {}, subtitle));
+    }));
+  } else {
+    const [ca, cb] = CATS[S.cat];
+    const availableSections = SEC.filter(s => {
+      const m = main(s.id);
+      return (m <= 39 || (m >= ca && m <= cb));
+    });
+
+    contentArea = el("div", { class: "sections-list" }, availableSections.map(sec => {
+      const secQuestions = allPool.filter(q => q.section === sec.id);
+      if (!secQuestions.length) return null;
+      return el("div", {
+        class: "section-item",
+        onclick: () => start(secQuestions.map(q => q.id), `Розділ ${sec.id}: ${sec.title}`)
+      },
+        el("div", {},
+          el("div", { class: "section-title" }, `Розділ ${sec.id}. ${sec.title}`),
+          el("div", { class: "section-meta" }, `${secQuestions.length} питань у темі`)
+        ),
+        el("button", { class: "btn sec", style: "padding: 6px 10px; font-size: 13px;" }, "Пройти →")
+      );
+    }));
+  }
+
+  $.replaceChildren(
+    el("header", {},
+      el("h1", {}, "🚗 Тренажер ПДР"),
+      el("div", { class: "row", style: "gap: 6px;" },
+        el("span", { class: "badge" }, `Категорія ${S.cat}`),
+        themeBtn
+      )
+    ),
+    miss ? el("div", { class: "warn" }, `⚠️ Для ${miss} питань цієї категорії немає ключів відповідей.`) : "",
+    statsBox,
+    el("div", { class: "card" },
+      catChips,
+      el("div", { class: "action-grid" },
+        el("button", {
+          class: "btn",
+          style: "background: #7c3aed;",
+          onclick: () => startExam()
+        }, "⏱️ Іспит ГСЦ (20 хв)"),
+        el("button", {
+          class: "btn",
+          onclick: () => {
+            const p = allPool.map(q => q.id);
+            if (!p.length) return;
+            for (let i = p.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [p[i], p[j]] = [p[j], p[i]];
+            }
+            start(p.slice(0, 20), "Випадковий білет", null);
+          }
+        }, "🎲 Випадковий білет"),
+        el("button", {
+          class: "btn sec",
+          onclick: () => {
+            if (!wr.length) {
+              alert("Помилок немає! Проходьте тести, і питання з неправильними відповідями з'являться тут.");
+              return;
+            }
+            start(wr.slice(0, 20), "Загальні помилки", null);
+          }
+        }, `❌ Помилки (${wr.length})`),
+        el("button", {
+          class: "btn sec",
+          onclick: () => {
+            if (!fv.length) {
+              alert("У вас ще немає збережених питань! Відкрийте будь-який білет і натисніть «☆ В обране».");
+              return;
+            }
+            start(fv.slice(0, 20), "Обрані питання", null);
+          }
+        }, `⭐ Обрані (${fv.length})`)
+      )
+    ),
+    viewTabs,
+    contentArea
+  );
+}
+
+let activeHandler = null;
+let examTimerInterval = null;
+
+function startExam() {
+  const p = pool().map(q => q.id);
+  if (p.length < 20) { alert("Недостатньо питань для іспиту!"); return; }
+  for (let i = p.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [p[i], p[j]] = [p[j], p[i]];
+  }
+  const examIds = p.slice(0, 20);
+
+  run({
+    ids: examIds,
+    origIds: examIds.slice(),
+    title: "🎓 Офіційний Іспит",
+    key: null,
+    i: 0,
+    answers: {},
+    errors: [],
+    isExam: true,
+    timeLeft: 20 * 60
+  });
+}
+
+function start(ids, title, key, origIds = null) {
+  if (!ids.length) return;
+  run({
+    ids: ids,
+    origIds: origIds || ids.slice(),
+    title: title,
+    key: key,
+    i: 0,
+    answers: {},
+    errors: [],
+    isExam: false
+  });
+}
+
+function toggleFav(id, btn) {
+  if (S.favs[id]) delete S.favs[id];
+  else S.favs[id] = true;
+  save();
+  if (btn) {
+    btn.classList.toggle("active", !!S.favs[id]);
+    btn.innerHTML = S.favs[id] ? "★ <span class='fav-btn-text'>В обраному</span>" : "☆ <span class='fav-btn-text'>В обране</span>";
+  }
+}
+
+function exitTest() {
+  if (confirm("Завершити проходження і вийти до головного меню?")) {
+    if (examTimerInterval) { clearInterval(examTimerInterval); examTimerInterval = null; }
+    if (activeHandler) window.removeEventListener("keydown", activeHandler);
+    currentExamState = null;
+    home();
+  }
+}
+
+function run(st) {
+  activeScreen = "run";
+  currentExamState = st;
+  const n = st.ids.length;
+  const qId = st.ids[st.i];
+  const q = Q.find(x => x.id == qId);
+  const right = A[q.id];
+  const secT = (SEC.find(s => s.id == q.section) || {}).title || "";
+  const curAns = st.answers[q.id];
+
+  if (st.isExam && !examTimerInterval) {
+    examTimerInterval = setInterval(() => {
+      st.timeLeft--;
+      const timerEl = document.getElementById("exam-timer");
+      if (timerEl) {
+        const m = Math.floor(st.timeLeft / 60);
+        const s = st.timeLeft % 60;
+        timerEl.textContent = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+        if (st.timeLeft <= 120) timerEl.classList.add("urgent");
+      }
+      if (st.timeLeft <= 0) {
+        clearInterval(examTimerInterval);
+        examTimerInterval = null;
+        alert("Час іспиту вичерпано!");
+        done(st);
+      }
+    }, 1000);
+  }
+
+  const navPills = el("div", { class: "q-nav" }, st.ids.map((id, idx) => {
+    const a = st.answers[id];
+    let cls = "q-pill";
+    if (idx === st.i) cls += " cur";
+    if (a !== undefined) {
+      if (st.isExam) cls += " answered";
+      else cls += (a === A[id] ? " ok" : " bad");
+    }
+    return el("button", {
+      class: cls,
+      onclick: () => { st.i = idx; run(st); }
+    }, (idx + 1) + "");
+  }));
+
+  const favBtn = el("button", {
+    class: "btn fav-btn " + (S.favs[q.id] ? "active" : ""),
+    onclick: () => toggleFav(q.id, favBtn)
+  });
+  favBtn.innerHTML = S.favs[q.id] ? "★ <span class='fav-btn-text'>В обраному</span>" : "☆ <span class='fav-btn-text'>В обране</span>";
+
+  const closeBtn = el("button", {
+    class: "btn-icon close-btn",
+    title: "Вийти з білету (Esc)",
+    onclick: exitTest
+  }, "✕");
+
+  const isDarkNow = document.documentElement.getAttribute("data-theme") === "dark" || 
+    (!document.documentElement.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  const themeBtn = el("button", {
+    class: "btn-icon",
+    title: "Змінити тему",
+    onclick: toggleTheme
+  }, isDarkNow ? "☀️" : "🌙");
+
+  const fb = el("div", { style: "font-weight: 600; font-size: 14px; margin: 10px 0 4px;" });
+
+  const goNext = () => {
+    if (st.i + 1 < n) {
+      st.i++;
+      run(st);
+    } else {
+      if (st.isExam) {
+        const answeredCount = Object.keys(st.answers).length;
+        if (answeredCount < n) {
+          if (!confirm(`Ви відповіли лише на ${answeredCount} з ${n} питань. Дійсно завершити іспит?`)) {
+            return;
+          }
+        }
+      }
+      done(st);
+    }
+  };
+
+  const nxt = el("button", {
+    class: "btn",
+    style: (st.isExam || curAns !== undefined) ? "display:inline-flex;" : "display:none;",
+    onclick: goNext
+  }, st.i + 1 < n ? "Наступне питання →" : (st.isExam ? "Завершити іспит ✓" : "Результат білета ✓"));
+
+  const answer = (userChoice) => {
+    st.answers[q.id] = userChoice;
+
+    if (st.key) {
+      if (!S.ticketHistory[st.key]) S.ticketHistory[st.key] = {};
+      S.ticketHistory[st.key][q.id] = userChoice;
+    }
+
+    if (!st.isExam) {
+      opts.forEach((b, j) => {
+        b.disabled = true;
+        if (j + 1 === right) b.classList.add("ok");
+        else if (j + 1 === userChoice) b.classList.add("bad");
+      });
+
+      if (userChoice !== right) {
+        if (!st.errors.includes(q.id)) st.errors.push(q.id);
+        S.wrong[q.id] = (S.wrong[q.id] || 0) + 1;
+      } else {
+        delete S.wrong[q.id];
+      }
+      save();
+      updateFb(userChoice);
+    } else {
+      opts.forEach((b, j) => {
+        b.classList.toggle("selected", j + 1 === userChoice);
+      });
+      st.errors = Object.keys(st.answers).filter(id => st.answers[id] !== A[id]);
+      if (st.errors.length > 2) {
+        setTimeout(() => {
+          alert("Ви припустилися 3 помилок. Іспит достроково завершено!");
+          done(st);
+        }, 300);
+        return;
+      }
+    }
+    nxt.style.display = "inline-flex";
+    run(st);
+  };
+
+  const opts = q.options.map((o, k) => {
+    const optImg = (q.option_images && q.option_images[k])
+      ? el("img", {
+          class: "opt-img",
+          src: "img/" + q.option_images[k],
+          loading: "lazy",
+          onclick: (e) => { e.stopPropagation(); openLightbox("img/" + q.option_images[k]); }
+        })
+      : null;
+
+    const optContent = el("div", { class: "opt-content" },
+      el("div", { class: "opt-text" }, o),
+      optImg
+    );
+
+    const optBtn = el("button", {
+      class: "opt" + (st.isExam && curAns === (k + 1) ? " selected" : ""),
+      onclick: () => answer(k + 1)
+    }, el("span", { class: "opt-idx" }, (k + 1) + ""), optContent);
+
+    if (!st.isExam && curAns !== undefined) {
+      optBtn.disabled = true;
+      if (k + 1 === right) optBtn.classList.add("ok");
+      else if (k + 1 === curAns) optBtn.classList.add("bad");
+    }
+    return optBtn;
+  });
+
+  function updateFb(choice) {
+    if (st.isExam) return;
+    if (choice === right) {
+      fb.textContent = "✅ Чудово, правильна відповідь!";
+      fb.style.color = "var(--ok)";
+    } else {
+      fb.textContent = `❌ Помилка! Правильна відповідь: №${right}`;
+      fb.style.color = "var(--bad)";
+    }
+  }
+
+  if (curAns !== undefined && !st.isExam) {
+    updateFb(curAns);
+  }
+
+  if (activeHandler) window.removeEventListener("keydown", activeHandler);
+  activeHandler = (e) => {
+    if (activeLightbox) {
+      if (e.key === "Escape") { activeLightbox.remove(); activeLightbox = null; }
+      return;
+    }
+    if (e.key === "Escape") { exitTest(); return; }
+    if (e.key === "ArrowLeft" && st.i > 0) { st.i--; run(st); return; }
+    if (e.key === "ArrowRight" && (st.isExam || curAns !== undefined)) { goNext(); return; }
+    if ((e.key === "Enter" || e.key === " ") && (st.isExam || curAns !== undefined)) { e.preventDefault(); goNext(); return; }
+    const num = parseInt(e.key);
+    if (!isNaN(num) && num >= 1 && num <= q.options.length) {
+      answer(num);
+    }
+  };
+  window.addEventListener("keydown", activeHandler);
+
+  const answeredCount = Object.keys(st.answers).length;
+
+  let timerDisplay = null;
+  if (st.isExam) {
+    const m = Math.floor(st.timeLeft / 60);
+    const s = st.timeLeft % 60;
+    timerDisplay = el("div", {
+      id: "exam-timer",
+      class: "timer-badge" + (st.timeLeft <= 120 ? " urgent" : "")
+    }, `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`);
+  }
+
+  $.replaceChildren(
+    el("div", { class: "row", style: "justify-content: space-between; margin-bottom: 10px; gap: 6px;" },
+      el("div", { class: "row", style: "gap: 6px;" },
+        el("button", { class: "btn sec", onclick: exitTest }, "← Вихід"),
+        el("span", { class: "mut", style: "font-weight: 600;" }, `${st.title} · ${st.i + 1}/${n}`)
+      ),
+      el("div", { class: "row", style: "gap: 6px;" },
+        timerDisplay,
+        themeBtn,
+        favBtn,
+        closeBtn
+      )
+    ),
+    navPills,
+    el("div", { class: "bar" }, el("i", { style: `width:${(answeredCount / n) * 100}%` })),
+    el("div", { class: "card", style: "box-shadow: var(--shadow-lg);" },
+      el("div", { class: "row", style: "justify-content: space-between; margin-bottom: 10px;" },
+        el("span", { class: "badge" }, `Розділ ${q.section}`),
+        el("span", { class: "mut", style: "font-size: 12px; font-weight: 500;" }, secT)
+      ),
+      el("h2", { style: "font-size: 17px; line-height: 1.45; margin: 0 0 10px; font-weight: 600;" }, `${st.i + 1}. ${q.text}`),
+      el("div", { class: "imgs" }, q.images.map(f => el("img", {
+        src: "img/" + f,
+        loading: "lazy",
+        onclick: () => openLightbox("img/" + f)
+      }))),
+      el("div", {}, opts),
+      fb,
+      el("div", { class: "row", style: "margin-top: 14px; justify-content: space-between;" },
+        st.i > 0 ? el("button", { class: "btn sec", onclick: () => { st.i--; run(st); } }, "← Попереднє") : el("span", {}),
+        nxt
+      )
+    )
+  );
+}
+
+function done(st) {
+  if (examTimerInterval) { clearInterval(examTimerInterval); examTimerInterval = null; }
+  if (activeHandler) { window.removeEventListener("keydown", activeHandler); activeHandler = null; }
+
+  const total = st.ids.length;
+  st.errors = st.ids.filter(id => st.answers[id] === undefined || st.answers[id] !== A[id]);
+  const errCount = st.errors.length;
+  const maxErr = getMaxErrors(total);
+  const pass = errCount <= maxErr;
+
+  if (st.key) {
+    const hist = S.ticketHistory[st.key] || {};
+    const fullTicketErrors = st.origIds.filter(id => hist[id] === undefined || hist[id] !== A[id]).length;
+    S.res[st.key] = { err: fullTicketErrors, total: st.origIds.length };
+    save();
+  }
+
+  const resultParagraph = el("p", { style: "font-size: 16px; margin: 0 0 14px; line-height: 1.5;" });
+  resultParagraph.innerHTML = `Результат: <b>${total - errCount}</b> із <b>${total}</b> правильних.<br>` +
+    `Помилок у цій сесії: <b style="color:${pass ? 'var(--ok)' : 'var(--bad)'}">${errCount}</b> (дозволено до ${maxErr}).`;
+
+  $.replaceChildren(
+    el("h1", {}, pass ? "🎉 Тест успішно складено!" : "❌ Тест не складено"),
+    el("div", { class: "card", style: "padding: 18px; box-shadow: var(--shadow-lg);" },
+      resultParagraph,
+      el("div", { class: "row" },
+        errCount > 0 ? el("button", {
+          class: "btn",
+          onclick: () => start(st.errors.slice(), "Помилки: " + st.title, st.key, st.origIds)
+        }, `🔄 Пройти помилки (${errCount})`) : "",
+        el("button", {
+          class: "btn sec",
+          onclick: () => st.isExam ? startExam() : start(st.origIds.slice(), st.title, st.key)
+        }, st.isExam ? "Спробувати іспит знову" : "Спробувати весь білет знову"),
+        el("button", { class: "btn sec", onclick: home }, "← До головного меню")
+      )
+    ),
+    errCount > 0 ? el("h3", { style: "margin: 18px 0 8px; font-size: 16px;" }, "Питання, де було зроблено помилки:") : "",
+    ...st.errors.map(id => {
+      const q = Q.find(x => x.id == id);
+      const right = A[id];
+      const userAns = st.answers[id];
+      
+      const userOptImg = (userAns && q.option_images && q.option_images[userAns - 1])
+        ? el("img", { class: "opt-img", src: "img/" + q.option_images[userAns - 1], onclick: () => openLightbox("img/" + q.option_images[userAns - 1]) })
+        : null;
+
+      const rightOptImg = (q.option_images && q.option_images[right - 1])
+        ? el("img", { class: "opt-img", src: "img/" + q.option_images[right - 1], onclick: () => openLightbox("img/" + q.option_images[right - 1]) })
+        : null;
+
+      return el("div", { class: "card", style: "border-left: 4px solid var(--bad); padding: 14px;" },
+        el("div", { class: "mut", style: "font-size: 12px;" }, `Розділ ${q.section}, питання №${q.num}`),
+        el("p", { style: "font-weight: 600; margin: 6px 0; font-size: 15px;" }, q.text),
+        el("div", { class: "imgs" }, q.images.map(f => el("img", {
+          src: "img/" + f,
+          onclick: () => openLightbox("img/" + f)
+        }))),
+        el("div", { style: "color: var(--bad); margin: 6px 0; font-size: 14px;" },
+          el("div", {}, `Ваша відповідь: ${userAns ? userAns + ") " + q.options[userAns - 1] : "Без відповіді"}`),
+          userOptImg
+        ),
+        el("div", { style: "color: var(--ok); font-weight: 600; margin: 6px 0; font-size: 14px;" },
+          el("div", {}, `Правильна відповідь: ${right}) ${q.options[right - 1]}`),
+          rightOptImg
+        )
+      );
+    })
+  );
+  window.scrollTo(0, 0);
+}
+
+home();
+</script>
+</body>
+</html>
